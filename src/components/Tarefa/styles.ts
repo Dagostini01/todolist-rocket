@@ -17,4 +17,10 @@ export const s = StyleSheet.create({
     fontSize: 16,
     color: "#ccc",
   },
+  text2: {
+    width: "80%",
+    fontSize: 16,
+    color: "#808080",
+    textDecorationLine: "line-through"
+  },
 });
