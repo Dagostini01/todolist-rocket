@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { s } from './styles';
 import { Tarefa } from '../../components/Tarefa';
@@ -10,8 +10,22 @@ export default function Home() {
     const [tarefa, setTarefa] = useState("")
     const [tarefas, setTarefas] = useState<string[]>([])
 
-    function handleTarefa() {
+    function handleTarefaAdd() {
+        console.log(tarefa.length)
+        if (tarefa.length < 1) {
+            Alert.alert("Atenção", "Digite uma tarefa!")
+            return;
+        }
         setTarefas(prevState => [...prevState, tarefa])
+        setTarefa("")
+    }
+
+    function handleTarefaRemove(value: string) {
+        Alert.alert("Apagar tarefa", "Deseja mesmo remover sua tarefa?", [
+            { text: "Sim", onPress: (() => setTarefas(prevState => prevState.filter(tarefa => tarefa !== value))) },
+            { text: "Não", style: 'cancel' }
+        ])
+
     }
 
     return (
@@ -25,9 +39,9 @@ export default function Home() {
                     value={tarefa}
                     onChangeText={setTarefa}
                 />
-                <TouchableOpacity style={s.button}>
+                <TouchableOpacity style={s.button} onPress={handleTarefaAdd}>
                     <View>
-                        <Text style={s.buttonText} onPress={handleTarefa}>+</Text>
+                        <Text style={s.buttonText}>+</Text>
                     </View>
                 </TouchableOpacity>
             </SafeAreaView>
@@ -55,6 +69,7 @@ export default function Home() {
                     <Tarefa
                         key={item}
                         conteudo={item}
+                        onRemove={() => handleTarefaRemove(item)}
                     />
                 )}
                 ListEmptyComponent={() => (

@@ -5,9 +5,10 @@ import { s } from "./styles";
 
 type Props = {
     conteudo: string
+    onRemove: ()=> void;
 }
 
-export function Tarefa({ conteudo }: Props) {
+export function Tarefa({ conteudo, onRemove }: Props) {
     return (
 
         <View style={s.container}>
@@ -18,7 +19,7 @@ export function Tarefa({ conteudo }: Props) {
 
             <Text style={s.text}>{conteudo}</Text>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onRemove}>
                 <Ionicons style={s.button} name="trash" size={20} color="#808080" />
             </TouchableOpacity>
 
