@@ -9,9 +9,9 @@ export default function Home() {
 
     const [tarefa, setTarefa] = useState("")
     const [tarefas, setTarefas] = useState<string[]>([])
+    const [tarefaCheck, setTarefasCheck] = useState<string[]>([])
 
     function handleTarefaAdd() {
-        console.log(tarefa.length)
         if (tarefa.length < 1) {
             Alert.alert("Atenção", "Digite uma tarefa!")
             return;
@@ -22,10 +22,24 @@ export default function Home() {
 
     function handleTarefaRemove(value: string) {
         Alert.alert("Apagar tarefa", "Deseja mesmo remover sua tarefa?", [
-            { text: "Sim", onPress: (() => setTarefas(prevState => prevState.filter(tarefa => tarefa !== value))) },
+            {
+                text: "Sim",
+                onPress: () => {
+                    setTarefas(prevState => prevState.filter(tarefa => tarefa !== value));
+                    setTarefasCheck(prevState => prevState.filter(tarefaCheck => tarefaCheck !== value));
+                }
+            },
             { text: "Não", style: 'cancel' }
         ])
 
+    }
+
+    function handleTarefaCheck(value: string) {
+        if (tarefaCheck.includes(value)) { return }
+        Alert.alert("Finalizar Tarefa", "Você finalizou mesmo essa tarefa?", [
+            { text: "Sim", onPress: (() => setTarefasCheck(prevState => [...prevState, value])) },
+            { text: "Não", style: 'cancel' }
+        ])
     }
 
     return (
@@ -56,7 +70,7 @@ export default function Home() {
                 <View style={s.description}>
                     <Text style={s.descriptionText2}>Concluídas</Text>
                     <View style={s.descriptionNumber}>
-                        <Text>0</Text>
+                        <Text>{tarefaCheck.length}</Text>
                     </View>
                 </View>
             </View>
@@ -70,6 +84,8 @@ export default function Home() {
                         key={item}
                         conteudo={item}
                         onRemove={() => handleTarefaRemove(item)}
+                        onCheck={() => (handleTarefaCheck(item))}
+                        check={tarefaCheck.includes(item)}
                     />
                 )}
                 ListEmptyComponent={() => (

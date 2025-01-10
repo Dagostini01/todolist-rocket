@@ -5,16 +5,18 @@ import { s } from "./styles";
 
 type Props = {
     conteudo: string
-    onRemove: ()=> void;
+    onRemove: () => void;
+    onCheck: () => void;
+    check: boolean;
 }
 
-export function Tarefa({ conteudo, onRemove }: Props) {
+export function Tarefa({ conteudo, onRemove, onCheck, check }: Props) {
     return (
 
         <View style={s.container}>
 
-            <TouchableOpacity style={s.button}>
-                <Ionicons name="remove-circle" size={20} color="#4EA8DE" />
+            <TouchableOpacity style={s.button} onPress={onCheck}>
+                <Ionicons name={check ? "checkmark-circle" : "ellipse-outline"} size={20} color="#4EA8DE" />
             </TouchableOpacity>
 
             <Text style={s.text}>{conteudo}</Text>
