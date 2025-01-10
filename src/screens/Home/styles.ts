@@ -61,4 +61,19 @@ export const s = StyleSheet.create({
     alignItems: "center",
   },
   tarefaView: {},
+  listEmptyText1: {
+    color: "#33333333",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: 44,
+  },
+  listEmptyText2: {
+    color: "#33333333",
+    textAlign: "center",
+    fontSize: 30,
+  },
+  containerlistEmptyText: {
+    marginTop: 100,
+    alignItems: "center",
+  },
 });

@@ -1,4 +1,5 @@
 import { FlatList, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { s } from './styles';
 import { Tarefa } from '../../components/Tarefa';
 import { useState } from 'react';
@@ -10,7 +11,6 @@ export default function Home() {
     const [tarefas, setTarefas] = useState<string[]>([])
 
     function handleTarefa() {
-        console.log("clicou")
         setTarefas(prevState => [...prevState, tarefa])
     }
 
@@ -56,6 +56,13 @@ export default function Home() {
                         key={item}
                         conteudo={item}
                     />
+                )}
+                ListEmptyComponent={() => (
+                    <View style={s.containerlistEmptyText}>
+                        <Ionicons name="documents-outline" size={100} color="#4EA8DE" />
+                        <Text style={s.listEmptyText1}>Você ainda não tem tarefas cadastradas</Text>
+                        <Text style={s.listEmptyText2}>Crie tarefas e organize seus itens a fazer</Text>
+                    </View>
                 )}
             />
 
